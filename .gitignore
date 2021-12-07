@@ -1,7 +1,7 @@
 # kotlin
 .gradle
 build
-src/**/*.txt
+src/**/Day??.txt
 
 # idea
 .idea
@@ -9,3 +9,5 @@ src/**/*.txt
 # python
 venv
 __pycache__
+
+template.txt
