@@ -25,10 +25,10 @@ grid_working_copy = [list(map(int, x.split())) for x in grid if x != ""]
 
 grid_working_copy = np.array(grid_working_copy).reshape((-1, 5, 5))
 
+loser = -1
 for e in sequence:
     grid_working_copy[grid_working_copy == e] = 0
     lose_count = 0
-    loser = -1
     for x in range(np.shape(grid_working_copy)[0]):
         won = False
         for i in range(5):
