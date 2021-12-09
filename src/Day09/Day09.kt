@@ -1,4 +1,5 @@
 import java.lang.Integer.MAX_VALUE
+import java.util.*
 
 fun main() {
     fun preprocess(input: List<String>): List<List<Int>> {
@@ -32,7 +33,31 @@ fun main() {
     }
 
     fun part2(input: List<List<Int>>): Int {
-        return 0
+        val inputWc = input.toMutableList().map { it.toMutableList() }
+        val sizes = MutableList(0) { 0 }
+        for (x in 1..inputWc.size - 2) {
+            for (y in 1..inputWc[x].size - 2) {
+                if (inputWc[x][y] < 9) {
+                    var size = 0
+                    val queue = LinkedList(listOf(Pair(x, y)))
+                    while (!queue.isEmpty()) {
+                        val next = queue.pop()
+                        if (inputWc[next.first][next.second] < 9) {
+                            inputWc[next.first][next.second] = 9
+                            size++
+                            queue.add(Pair(next.first + 1, next.second))
+                            queue.add(Pair(next.first - 1, next.second))
+                            queue.add(Pair(next.first, next.second + 1))
+                            queue.add(Pair(next.first, next.second - 1))
+                        }
+                    }
+                    sizes.add(size)
+                }
+            }
+        }
+        sizes.sort()
+        sizes.reverse()
+        return sizes[0] * sizes[1] * sizes[2]
     }
 
     val testInput = preprocess(readInput(9, true))
@@ -41,6 +66,6 @@ fun main() {
     check(part1(testInput) == 15)
     println(part1(input))
 
-    check(part2(testInput) == 61229)
+    check(part2(testInput) == 1134)
     println(part2(input))
 }
